@@ -307,10 +307,12 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
 
             master_host = "{}/{}".format(group, os.path.basename(host_file[:-1]))
 
-            for index in range(1,self.copies+1):
+            for index in range(1, self.copies+1):
 
+                # If there are multiple copies, adapt hostnamesapdc
                 if self.copies > 1:
-                    host = "{}/{}-{}".format(group, os.path.basename(host_file[:-1]), index)
+                    width = len(str(self.copies+1)) # to align digits
+                    host = f"{group}/{ os.path.basename(host_file[:-1])}-{index:0{width}d}"
                     machine_name = f"{os.path.basename(host_file[:-1])}-{index}"
                 else:
                     host = "{}/{}".format(group, os.path.basename(host_file[:-1]))
